@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>现代待办事项</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="todo-card" aria-labelledby="app-title">
+      <header class="todo-header">
+        <div>
+          <p class="eyebrow">Task Flow</p>
+          <h1 id="app-title">待办事项</h1>
+          <p class="subtitle">专注今天，逐项完成。</p>
+        </div>
+        <div class="stats" aria-live="polite">
+          <div class="stat-pill">
+            <span id="totalCount">0</span>
+            <small>总数</small>
+          </div>
+          <div class="stat-pill success">
+            <span id="completedCount">0</span>
+            <small>已完成</small>
+          </div>
+        </div>
+      </header>
+
+      <form id="todoForm" class="todo-form" autocomplete="off">
+        <label for="todoInput" class="sr-only">输入待办事项</label>
+        <input
+          id="todoInput"
+          type="text"
+          placeholder="例如：完成项目原型设计"
+          maxlength="120"
+          required
+          readonly
+        />
+        <label for="todoDate" class="sr-only">选择任务日期</label>
+        <input id="todoDate" type="date" />
+        <label for="todoStartTime" class="sr-only">开始时间</label>
+        <input id="todoStartTime" type="time" />
+        <label for="todoEndTime" class="sr-only">结束时间</label>
+        <input id="todoEndTime" type="time" />
+        <button type="submit">添加</button>
+      </form>
+
+      <section class="calendar-section" aria-labelledby="calendar-title">
+        <div class="calendar-head">
+          <h2 id="calendar-title">日历视图</h2>
+          <div class="calendar-controls">
+            <button id="prevMonthBtn" type="button" class="ghost-btn" aria-label="上个月">‹</button>
+            <p id="calendarMonthLabel" class="calendar-month" aria-live="polite"></p>
+            <button id="nextMonthBtn" type="button" class="ghost-btn" aria-label="下个月">›</button>
+          </div>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+        </div>
+        <div id="calendarGrid" class="calendar-grid" role="grid" aria-label="月份日历"></div>
+      </section>
+
+      <section class="list-section" aria-labelledby="list-title">
+        <div class="list-head">
+          <h2 id="list-title">任务列表（选中日期）</h2>
+          <button id="clearCompletedBtn" type="button" class="ghost-btn">清除已完成</button>
+        </div>
+        <ul id="todoList" class="todo-list" aria-live="polite"></ul>
+        <p id="emptyState" class="empty-state">选中日期还没有任务，先添加一个开始吧。</p>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="taskDetailDialog" class="task-dialog">
+    <form id="taskDetailForm" class="task-detail-form" method="dialog">
+      <div class="dialog-head">
+        <h3>新建任务详情</h3>
+        <button id="closeTaskDialogBtn" type="button" class="ghost-btn">关闭</button>
+      </div>
+
+      <div class="dialog-field">
+        <label for="taskTitleInput">任务标题</label>
+        <input
+          id="taskTitleInput"
+          type="text"
+          maxlength="120"
+          placeholder="例如：完成项目原型设计"
+        />
+      </div>
+
+      <div class="dialog-field">
+        <div class="subtask-head">
+          <label>具体小任务</label>
+          <button id="addSubtaskBtn" type="button" class="ghost-btn">添加小任务</button>
+        </div>
+        <div id="subtaskEditorList" class="subtask-editor-list"></div>
+        <p class="subtask-tip">可添加多个步骤，例如 a / b / c。</p>
+      </div>
+
+      <div class="dialog-actions">
+        <button id="cancelTaskDialogBtn" type="button" class="ghost-btn">取消</button>
+        <button id="saveTaskDetailBtn" type="submit">保存任务</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

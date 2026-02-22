@@ -1,0 +1,576 @@
+﻿:root {
+  --bg: #f4f7fb;
+  --bg-accent: #e8f0ff;
+  --card: rgba(255, 255, 255, 0.9);
+  --text: #172033;
+  --muted: #64748b;
+  --line: rgba(23, 32, 51, 0.08);
+  --shadow: 0 18px 50px rgba(17, 24, 39, 0.12);
+  --primary: #2563eb;
+  --primary-2: #1d4ed8;
+  --success: #0f766e;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --radius: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Noto Sans SC", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 15%, rgba(37, 99, 235, 0.18), transparent 40%),
+    radial-gradient(circle at 88% 10%, rgba(15, 118, 110, 0.16), transparent 42%),
+    linear-gradient(180deg, var(--bg-accent), var(--bg));
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.todo-card {
+  width: min(900px, 100%);
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 36px);
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.stat-pill {
+  min-width: 78px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  text-align: center;
+}
+
+.stat-pill.success {
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.14);
+}
+
+.stat-pill span {
+  display: block;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.stat-pill small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.todo-form {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 150px 120px 120px auto;
+  gap: 10px;
+}
+
+.todo-form input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 15px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#todoDate {
+  min-width: 0;
+}
+
+#todoStartTime,
+#todoEndTime {
+  min-width: 0;
+}
+
+#todoInput[readonly] {
+  cursor: pointer;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+}
+
+.todo-form input:focus {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+button {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.96;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.todo-form button {
+  background: linear-gradient(180deg, var(--primary), var(--primary-2));
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+.list-section {
+  margin-top: 20px;
+}
+
+.calendar-section {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.calendar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.calendar-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendar-controls .ghost-btn {
+  padding: 6px 10px;
+  min-width: 36px;
+}
+
+.calendar-month {
+  margin: 0;
+  min-width: 110px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 4px 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-day {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  min-height: 58px;
+  padding: 8px 6px;
+  display: grid;
+  align-content: space-between;
+  justify-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+  border-color: rgba(37, 99, 235, 0.28);
+}
+
+.calendar-day.outside {
+  opacity: 0.5;
+}
+
+.calendar-day.selected {
+  border-color: rgba(37, 99, 235, 0.45);
+  background: rgba(37, 99, 235, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.15);
+}
+
+.calendar-day.today .day-number {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.day-number {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.day-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.85);
+}
+
+.day-count {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.ghost-btn {
+  background: rgba(23, 32, 51, 0.05);
+  color: var(--muted);
+  border: 1px solid rgba(23, 32, 51, 0.08);
+  padding: 8px 12px;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.todo-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.todo-check {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--success);
+  cursor: pointer;
+}
+
+.todo-text {
+  font-size: 15px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.todo-meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.subtask-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.subtask-list li {
+  margin: 3px 0;
+}
+
+.todo-item.completed .todo-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.delete-btn {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.empty-state {
+  margin: 18px 0 4px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  padding: 16px;
+  border: 1px dashed rgba(100, 116, 139, 0.25);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.task-dialog {
+  width: min(620px, calc(100vw - 24px));
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  padding: 0;
+  box-shadow: 0 30px 80px rgba(17, 24, 39, 0.22);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.task-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.42);
+  backdrop-filter: blur(3px);
+}
+
+.task-detail-form {
+  padding: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dialog-head h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.dialog-field {
+  display: grid;
+  gap: 8px;
+}
+
+.dialog-field label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.dialog-field input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.dialog-field input:focus {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.subtask-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.subtask-editor-list {
+  display: grid;
+  gap: 8px;
+}
+
+.subtask-editor-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.subtask-editor-row input {
+  margin: 0;
+}
+
+.subtask-remove-btn {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--danger);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.subtask-tip {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 14px;
+    place-items: start center;
+  }
+
+  .todo-card {
+    padding: 16px;
+    border-radius: 16px;
+    margin-top: 10px;
+  }
+
+  .todo-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stats {
+    justify-content: flex-start;
+  }
+
+  .todo-form {
+    grid-template-columns: 1fr;
+  }
+
+  .todo-form button {
+    width: 100%;
+  }
+
+  .list-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .calendar-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .calendar-controls {
+    justify-content: space-between;
+  }
+
+  .calendar-month {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .calendar-day {
+    min-height: 52px;
+  }
+
+  .subtask-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subtask-editor-row {
+    grid-template-columns: 1fr;
+  }
+
+  .subtask-remove-btn {
+    width: 100%;
+  }
+
+  .todo-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .delete-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .dialog-actions {
+    flex-direction: column;
+  }
+
+  .dialog-actions button {
+    width: 100%;
+  }
+}
